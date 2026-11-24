@@ -32,21 +32,21 @@ A RESTful Employee Management API built using **FastAPI, Python, SQLAlchemy, and
 employee-management-api/
 │
 ├── app/
+│   ├── __init__.py
 │   ├── auth.py
 │   ├── database.py
 │   ├── main.py
 │   ├── models.py
-│   ├── schemas.py
-│   └── __init__.py
+│   └── schemas.py
 │
 ├── tests/
 │   ├── conftest.py
 │   └── test_main.py
 │
 ├── .gitignore
-├── .env
 ├── requirements.txt
-└── README.md
+├── README.md
+└── .env.example
 ```
 
 ## Installation and Setup
