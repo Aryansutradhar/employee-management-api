@@ -1,30 +1,36 @@
 # Employee Management API
 
-A RESTful Employee Management API built using **FastAPI, Python, SQLAlchemy, and PostgreSQL**. The application provides employee and department management, JWT-based authentication, role-based authorization, and automated API testing.
+A RESTful Employee Management API built using **Python, FastAPI, SQLAlchemy, and PostgreSQL**. This project provides employee and department management, JWT-based authentication, role-based access control, and automated API testing.
+
+The application follows a structured backend architecture with secure authentication, database integration, request validation, and protected API endpoints.
 
 ## Features
 
-- Employee CRUD operations (Create, Read, Update, Delete)
-- Department CRUD operations
-- Employee and department statistics
-- User registration and login
-- JWT-based authentication
-- Password hashing and verification using pwdlib
-- Role-based access control (Admin and User)
-- Active/inactive user account management
-- Database health-check endpoints
-- Automated testing using Pytest
+- **Employee Management:** Create, retrieve, update, and delete employee records.
+- **Department Management:** Create, retrieve, update, and delete departments.
+- **Employee Statistics:** Retrieve employee counts and statistics.
+- **Department Statistics:** Retrieve department-related statistics.
+- **User Registration:** Register new users securely.
+- **JWT Authentication:** Secure login and token-based authentication.
+- **Password Security:** Password hashing and verification using `pwdlib`.
+- **Role-Based Access Control (RBAC):** Separate permissions for Admin and User roles.
+- **Account Management:** Support for active and inactive user accounts.
+- **Database Health Checks:** Monitor API and database connectivity.
+- **Automated Testing:** Test API functionality and authentication using Pytest.
 
 ## Tech Stack
 
-- **Backend:** Python, FastAPI
-- **Database:** PostgreSQL
-- **ORM:** SQLAlchemy
-- **Authentication:** JWT (PyJWT)
-- **Password Security:** pwdlib
-- **Validation:** Pydantic
-- **Server:** Uvicorn
-- **Testing:** Pytest
+| Technology | Purpose |
+|---|---|
+| Python | Backend programming language |
+| FastAPI | REST API framework |
+| PostgreSQL | Relational database |
+| SQLAlchemy | ORM and database operations |
+| Pydantic | Data validation and serialization |
+| PyJWT | JWT authentication |
+| pwdlib | Password hashing and verification |
+| Uvicorn | ASGI server |
+| Pytest | Automated testing |
 
 ## Project Structure
 
@@ -43,70 +49,95 @@ employee-management-api/
 │   ├── conftest.py
 │   └── test_main.py
 │
+├── .env.example
 ├── .gitignore
 ├── requirements.txt
-├── README.md
-└── .env.example
+└── README.md
 ```
 
 ## Installation and Setup
 
-### 1. Clone the repository
+Follow these steps to run the project locally.
+
+### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/employee-management-api.git
+git clone https://github.com/Aryansutradhar/employee-management-api.git
+```
+
+Navigate to the project directory:
+
+```bash
 cd employee-management-api
 ```
 
-### 2. Create a virtual environment
+### 2. Create a Virtual Environment
 
 ```bash
 python -m venv venv
 ```
 
-### 3. Activate the virtual environment
+### 3. Activate the Virtual Environment
 
-Windows:
+For Windows PowerShell:
 
 ```powershell
+venv\Scripts\Activate.ps1
+```
+
+For Windows Command Prompt:
+
+```cmd
 venv\Scripts\activate
 ```
 
-### 4. Install dependencies
+### 4. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 5. Configure environment variables
+### 5. Configure Environment Variables
 
-Create a `.env` file in the project root:
+Create a `.env` file in the root directory.
+
+Add the following environment variables:
 
 ```env
 DATABASE_URL=your_postgresql_database_url
 SECRET_KEY=your_secure_random_secret
 ```
 
-Replace the placeholder values with your own PostgreSQL connection string and a securely generated JWT secret.
+Replace the placeholder values with your actual PostgreSQL database connection URL and a securely generated JWT secret key.
 
-Never commit your `.env` file to GitHub.
+**Important:** Never upload your actual `.env` file or expose database credentials and secret keys on GitHub.
 
-### 6. Run the application
+### 6. Run the Application
+
+Start the FastAPI development server:
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-The API will be available at:
+The application will run locally at:
 
-`http://127.0.0.1:8000`
+```text
+http://127.0.0.1:8000
+```
 
 ## API Documentation
 
 FastAPI automatically generates interactive API documentation.
 
-- Swagger UI: `http://127.0.0.1:8000/docs`
-- ReDoc: `http://127.0.0.1:8000/redoc`
+Once the application is running, access:
+
+| Documentation | URL |
+|---|---|
+| Swagger UI | http://127.0.0.1:8000/docs |
+| ReDoc | http://127.0.0.1:8000/redoc |
+
+Swagger UI allows you to interact with and test the API endpoints directly from your browser.
 
 ## API Endpoints
 
@@ -115,68 +146,92 @@ FastAPI automatically generates interactive API documentation.
 | Method | Endpoint | Description |
 |---|---|---|
 | POST | `/register` | Register a new user |
-| POST | `/login` | Authenticate user |
-| GET | `/users/me` | Get current user profile |
+| POST | `/login` | Authenticate a user |
+| GET | `/users/me` | Retrieve the current user's profile |
 
-### Employees
-
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/employees` | Create employee |
-| GET | `/employees` | List employees |
-| GET | `/employees/count` | Get employee count |
-| GET | `/employees/statistics` | Employee statistics |
-| GET | `/employees/{employee_id}` | Get employee details |
-| PUT | `/employees/{employee_id}` | Update employee |
-| DELETE | `/employees/{employee_id}` | Delete employee |
-
-### Departments
+### Employee Management
 
 | Method | Endpoint | Description |
 |---|---|---|
-| POST | `/departments` | Create department |
-| GET | `/departments` | List departments |
-| GET | `/departments/statistics` | Department statistics |
-| GET | `/departments/{department_id}` | Get department details |
-| PUT | `/departments/{department_id}` | Update department |
-| DELETE | `/departments/{department_id}` | Delete department |
+| POST | `/employees` | Create a new employee |
+| GET | `/employees` | Retrieve all employees |
+| GET | `/employees/count` | Get total employee count |
+| GET | `/employees/statistics` | Retrieve employee statistics |
+| GET | `/employees/{employee_id}` | Retrieve employee details |
+| PUT | `/employees/{employee_id}` | Update employee details |
+| DELETE | `/employees/{employee_id}` | Delete an employee |
 
-### System
+### Department Management
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/departments` | Create a new department |
+| GET | `/departments` | Retrieve all departments |
+| GET | `/departments/statistics` | Retrieve department statistics |
+| GET | `/departments/{department_id}` | Retrieve department details |
+| PUT | `/departments/{department_id}` | Update department details |
+| DELETE | `/departments/{department_id}` | Delete a department |
+
+### System Endpoints
 
 | Method | Endpoint | Description |
 |---|---|---|
 | GET | `/` | Home endpoint |
-| GET | `/health` | Health check |
+| GET | `/health` | Application health check |
 | GET | `/db-check` | Database connectivity check |
 
 ## Authentication and Security
 
-- JWT tokens are used for authenticated API requests.
-- Passwords are hashed using pwdlib.
-- Protected endpoints require valid authentication.
-- Admin-only operations use role-based authorization.
-- Inactive accounts cannot access protected resources.
-- JWT secrets and database credentials are configured through environment variables.
+The application implements authentication and authorization to protect sensitive API operations.
 
-## Running Tests
+- **JWT Authentication:** Uses JSON Web Tokens to authenticate API requests.
+- **Password Hashing:** Passwords are securely hashed using `pwdlib`.
+- **Protected Endpoints:** Restricted endpoints require valid authentication.
+- **Role-Based Authorization:** Admin-only operations are protected using role-based access control.
+- **Account Status Management:** Inactive accounts cannot access protected resources.
+- **Environment Configuration:** Database credentials and JWT secrets are managed through environment variables.
 
-Run the complete test suite:
+## Automated Testing
+
+The project includes automated API tests using **Pytest**.
+
+The test suite covers application functionality, employee and department operations, authentication, authorization, and access restrictions.
+
+Run the complete test suite using:
 
 ```bash
 python -m pytest -v
 ```
 
-The project currently has **38 passing automated tests**.
+### Test Results
+
+**38 automated tests passing successfully.**
+
+The tests help verify that the API behaves as expected and that authentication and authorization rules are enforced.
 
 ## Future Improvements
 
-- Add database migrations using Alembic.
-- Add Docker support.
-- Implement pagination and advanced filtering.
-- Add API deployment and CI/CD integration.
+Potential improvements for future development include:
+
+- Database migrations using Alembic.
+- Docker containerization.
+- Pagination and advanced filtering.
+- API deployment to a cloud platform.
+- CI/CD integration using GitHub Actions.
+- Improved logging and monitoring.
 
 ## Author
 
 **Aryan Sutradhar**
 
-GitHub: [aryansutradhar](https://github.com/aryansutradhar)
+Computer Science and Engineering
+
+GitHub: [@Aryansutradhar](https://github.com/Aryansutradhar)
+
+## Project Repository
+
+[Employee Management API – GitHub](https://github.com/Aryansutradhar/employee-management-api)
+
+---
+
+**Built with Python, FastAPI, PostgreSQL, and SQLAlchemy.**
